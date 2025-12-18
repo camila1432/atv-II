@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sweet Imports — Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    (function () {
+      const user = localStorage.getItem("user");
+      if (!user) {
+        window.location.href = "auth/login.html";
+      }
+    })();
+  </script>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🍬</div>
+      <span class="logo-text">Sweet Imports</span>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="products.html">Produtos</a>
+      <a href="about.html">Sobre</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="cart.html" class="cart">
+        🛒 <span id="cart-count">0</span>
+      </a>
+
+      <!-- LOGOUT -->
+      <button onclick="logout()" style="
+        margin-left:10px;
+        padding:6px 10px;
+        border:none;
+        border-radius:6px;
+        background:#ef4444;
+        color:#fff;
+        cursor:pointer;">
+        Sair
+      </button>
+
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="products.html">Produtos</a>
+    <a href="about.html">Sobre</a>
+    <a href="#" onclick="logout()">Sair</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">✨ Doces Importados Premium</div>
+
+    <h1 class="hero-title">
+      <span class="gradient-text">Sweet Imports</span>
+      <span class="emoji">🍬🍫🌈</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Os doces mais famosos do mundo,<br>
+      <strong>direto para você.</strong>
+    </p>
+
+    <div class="hero-actions">
+      <a href="products.html" class="btn-primary">Ver Produtos →</a>
+      <a href="about.html" class="btn-secondary">Saiba Mais</a>
+    </div>
+  </div>
+</section>
+
+<section class="brands">
+  <h2>Marcas que você ama</h2>
+  <div class="brands-grid">
+    <div class="brand-card">🔴 M&M's</div>
+    <div class="brand-card">🍫 Hershey's</div>
+    <div class="brand-card">🌈 Skittles</div>
+    <div class="brand-card">🥜 Reese's</div>
+    <div class="brand-card">🍫 KitKat</div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <div class="icon">🚚</div>
+    <h3>Entrega Rápida</h3>
+    <p>Receba em até 5 dias</p>
+  </div>
+
+  <div class="feature">
+    <div class="icon">🛡️</div>
+    <h3>100% Original</h3>
+    <p>Produtos importados</p>
+  </div>
+
+  <div class="feature">
+    <div class="icon">⭐</div>
+    <h3>Qualidade Premium</h3>
+    <p>Marcas mundiais</p>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Pronto para adoçar seu dia?</h2>
+  <p>Confira nossa seleção de doces importados</p>
+  <a href="products.html" class="btn-white">Explorar Produtos →</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div>
+      <h3>Sweet Imports 🍬</h3>
+      <p>Os doces mais famosos do mundo, direto para você.</p>
+    </div>
+
+    <div>
+      <h4>Links Rápidos</h4>
+      <a href="index.html">Home</a>
+      <a href="products.html">Produtos</a>
+      <a href="about.html">Sobre</a>
+    </div>
+
+    <div>
+      <h4>Contato</h4>
+      <p>contato@sweetimports.com</p>
+      <p>@sweetimports</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2024 Sweet Imports. Todos os direitos reservados.
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+<script>
+  function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "auth/login.html";
+  }
+</script>
+
+</body>
+</html>

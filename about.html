@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sobre | Sweet Imports</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --red: #ef4444;
+  --orange: #f97316;
+  --yellow: #facc15;
+  --amber: #f59e0b;
+  --gray: #374151;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom, #fff7ed, #fff);
+  color: var(--gray);
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(to right, var(--red), var(--orange), var(--yellow));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero h1 span {
+  color: initial;
+  -webkit-text-fill-color: initial;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 20px auto;
+  color: #555;
+}
+
+.story {
+  background: white;
+  border-radius: 32px;
+  padding: 50px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  margin-bottom: 80px;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.story h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.story p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.brands {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.brand-card {
+  background: linear-gradient(to bottom right, #fffbeb, #fff);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.brand-card span {
+  font-size: 2.5rem;
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.contact-info {
+  background: linear-gradient(to bottom right, var(--red), var(--orange));
+  color: white;
+  border-radius: 32px;
+  padding: 40px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.icon {
+  background: rgba(255,255,255,0.2);
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-form {
+  background: white;
+  border-radius: 32px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+input, textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  height: 55px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(to right, var(--red), var(--orange));
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #fde68a;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #ef4444, #facc15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-weight: 900;
+  font-size: 1.4rem;
+  background: linear-gradient(90deg, #ef4444, #f97316, #facc15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+}
+
+.nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.nav a.active,
+.nav a:hover {
+  color: #ef4444;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cart {
+  position: relative;
+  text-decoration: none;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cart span {
+  background: none;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  margin-left: 4px;
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.mobile-menu a {
+  padding: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #374151;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+  .menu-btn {
+    display: block;
+  }
+}
+
+.footer {
+  background: linear-gradient(90deg, #78350f, #92400e);
+  color: #fde68a;
+  margin-top: 80px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 48px 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+}
+
+.footer a {
+  display: block;
+  color: #fde68a;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.footer a:hover {
+  color: #facc15;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🍬</div>
+      <span class="logo-text">Sweet Imports</span>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="products.html">Produtos</a>
+      <a href="about.html" class="active">Sobre</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="cart.html" class="cart">🛒</a>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="products.html">Produtos</a>
+    <a href="about.html">Sobre</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>
+      Sobre a Sweet Imports
+      <span>🍬🍫🌈</span>
+    </h1>
+    <p>Somos especializados em trazer os doces mais famosos do mundo diretamente para você.</p>
+  </section>
+
+  <section class="story">
+    <div class="story-grid">
+      <div>
+        <h2>Nossa História 📖</h2>
+        <p><strong>Sweet Imports</strong> nasceu da paixão por doces importados.</p>
+        <p>Selecionamos marcas como M&M’s, Hershey’s, Skittles, Reese’s e KitKat.</p>
+        <p><strong>Missão:</strong> trazer felicidade através de doces.</p>
+      </div>
+
+      <div class="brands">
+        <div class="brand-card"><span>🔴</span><h3>M&M’s</h3></div>
+        <div class="brand-card"><span>🍫</span><h3>Hershey’s</h3></div>
+        <div class="brand-card"><span>🌈</span><h3>Skittles</h3></div>
+        <div class="brand-card"><span>🥜</span><h3>Reese’s</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="contact-info">
+      <h2>Entre em Contato 💬</h2>
+
+      <div class="info-item">
+        <div class="icon">📧</div>
+        <span>contato@sweetimports.com</span>
+      </div>
+
+      <div class="info-item">
+        <div class="icon">📸</div>
+        <span>@sweetimports</span>
+      </div>
+
+      <div class="info-item">
+        <div class="icon">📞</div>
+        <span>(71) 99999-9999</span>
+      </div>
+
+      <div class="info-item">
+        <div class="icon">📍</div>
+        <span>Salvador, BA</span>
+      </div>
+    </div>
+    <form class="contact-form" id="form-area" onsubmit="send(event)">
+  <h2>Envie uma Mensagem ✉️</h2>
+  <input type="text" id="nome" placeholder="Nome" required>
+  <input type="text" id="assunto" placeholder="Assunto" required>
+  <textarea id="mensagem" rows="5" placeholder="Mensagem" required></textarea>
+  <button type="submit">Enviar Mensagem</button>
+</form>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div>
+      <h3>Sweet Imports 🍬</h3>
+      <p>Os doces mais famosos do mundo, direto para você.</p>
+    </div>
+
+    <div>
+      <h4>Links Rápidos</h4>
+      <a href="index.html">Home</a>
+      <a href="products.html">Produtos</a>
+      <a href="about.html">Sobre</a>
+    </div>
+
+    <div>
+      <h4>Contato</h4>
+      <p>contato@sweetimports.com</p>
+      <p>@sweetimports</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2024 Sweet Imports. Todos os direitos reservados.
+  </div>
+</footer>
+
+<script>
+function send(event) {
+  event.preventDefault();
+
+  const data = {
+    nome: document.getElementById("nome").value,
+    assunto: document.getElementById("assunto").value,
+    mensagem: document.getElementById("mensagem").value
+  };
+
+  fetch("http://localhost:8080/api/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.text())
+  .then(() => {
+    document.getElementById('form-area').innerHTML = `
+      <div style="text-align:center">
+        <h2>✅ Mensagem Enviada!</h2>
+        <p>Responderemos em breve.</p>
+      </div>
+    `;
+  })
+  .catch(error => {
+    alert("Erro ao enviar mensagem 😢");
+    console.error(error);
+  });
+}
+</script>
+
+</body>
+</html>

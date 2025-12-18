@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sweet Imports — Produtos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { margin: 0; background: #f9fafb; color: #111827; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 48px 16px; }
+
+    .title { text-align: center; margin-bottom: 48px; }
+    .title h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 900; margin: 0; }
+    .gradient-text { background: linear-gradient(90deg, #ef4444, #facc15); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .title p { margin-top: 12px; color: #6b7280; font-size: 1.1rem; }
+
+    .filters { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+    .filters input, .filters select { padding: 14px 18px; border-radius: 16px; border: none; background: #f3f4f6; font-size: 1rem; outline: none; width: 100%; }
+    .filters input { flex: 1; }
+    .filters select { min-width: 220px; cursor: pointer; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+
+    .card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 35px rgba(0,0,0,0.1); }
+    .card-image { height: 200px; background: linear-gradient(135deg, #fef3c7, #fde68a); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+    .card-body { padding: 20px; }
+    .category { font-size: 0.75rem; font-weight: 700; color: #ef4444; text-transform: uppercase; letter-spacing: 0.05em; }
+    .name { font-size: 1.2rem; font-weight: 800; margin: 8px 0; }
+    .price { font-size: 1.4rem; font-weight: 900; margin-top: 12px; }
+
+    .empty { text-align: center; padding: 80px 0; color: #6b7280; }
+    .empty div { font-size: 4rem; margin-bottom: 16px; }
+
+    .loader { display: flex; justify-content: center; padding: 80px; font-size: 2rem; color: #ef4444; animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .header { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #fde68a; z-index: 1000; }
+    .header-container { max-width: 1200px; margin: auto; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 44px; height: 44px; background: linear-gradient(135deg, #ef4444, #facc15); border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+    .logo-text { font-weight: 900; font-size: 1.4rem; background: linear-gradient(90deg, #ef4444, #f97316, #facc15); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav { display: flex; gap: 24px; }
+    .nav a { text-decoration: none; font-weight: 600; color: #6b7280; }
+    .nav a.active, .nav a:hover { color: #ef4444; }
+    .header-actions { display: flex; align-items: center; gap: 16px; }
+    .cart { position: relative; text-decoration: none; font-weight: 700; color: #111827; }
+    .cart span { background: none; color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 999px; margin-left: 4px; }
+    .menu-btn { display: none; background: none; border: none; font-size: 1.5rem; }
+    .mobile-menu { display: none; flex-direction: column; padding: 16px; }
+    .mobile-menu a { padding: 12px; text-decoration: none; font-weight: 600; color: #374151; }
+
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .menu-btn { display: block; }
+    }
+
+    .footer { background: linear-gradient(90deg, #78350f, #92400e); color: #fde68a; margin-top: 80px; }
+    .footer-container { max-width: 1200px; margin: auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+    .footer a { display: block; color: #fde68a; text-decoration: none; margin-top: 8px; }
+    .footer a:hover { color: #facc15; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding: 16px; text-align: center; font-size: 0.85rem; }
+  </style>
+
+</head>
+<body>
+
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🍬</div>
+      <span class="logo-text">Sweet Imports</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="products.html" class="active">Produtos</a>
+      <a href="about.html">Sobre</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="cart">🛒</a>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="products.html">Produtos</a>
+    <a href="about.html">Sobre</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="title">
+    <h1><span class="gradient-text">Nossos Doces</span> 🍬</h1>
+    <p>Escolha seus favoritos entre as melhores marcas do mundo</p>
+  </div>
+
+  <div class="filters">
+    <input type="text" id="search" placeholder="Buscar doces..." />
+    <select id="brand">
+      <option value="all">Todas as Marcas</option>
+      <option>M&M's</option>
+      <option>Hershey's</option>
+      <option>Skittles</option>
+      <option>Reese's</option>
+      <option>KitKat</option>
+    </select>
+    <select id="category">
+      <option value="all">Todas as Categorias</option>
+      <option>Chocolate</option>
+      <option>Balas</option>
+      <option>Amendoim</option>
+      <option>Wafer</option>
+    </select>
+  </div>
+
+  <div id="loader" class="loader">🍬</div>
+  <div id="grid" class="grid" style="display:none;"></div>
+
+  <div id="empty" class="empty" style="display:none;">
+    <div>🔍</div>
+    <h3>Nenhum produto encontrado</h3>
+    <p>Tente ajustar os filtros ou a busca</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div>
+      <h3>Sweet Imports 🍬</h3>
+      <p>Os doces mais famosos do mundo, direto para você.</p>
+    </div>
+    <div>
+      <h4>Links Rápidos</h4>
+      <a href="index.html">Home</a>
+      <a href="products.html">Produtos</a>
+      <a href="about.html">Sobre</a>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <p>contato@sweetimports.com</p>
+      <p>@sweetimports</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2024 Sweet Imports. Todos os direitos reservados.</div>
+</footer>
+
+<script>
+const grid = document.getElementById('grid');
+const loader = document.getElementById('loader');
+const empty = document.getElementById('empty');
+const searchInput = document.getElementById('search');
+const brandSelect = document.getElementById('brand');
+const categorySelect = document.getElementById('category');
+
+let products = [];
+
+function render(list) {
+  grid.innerHTML = '';
+
+  if (list.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+
+  list.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.onclick = () => window.location.href = `product.html?id=${p.id}`;
+
+    const image = p.imageUrl || '';
+
+    card.innerHTML = `
+      <div class="card-image">
+        <img src="${image}" alt="${p.name}">
+      </div>
+
+      <div class="card-body">
+        <div class="category">${p.category}</div>
+        <div class="name">${p.name}</div>
+        <div class="price">
+          R$ ${p.price.toFixed(2).replace('.', ',')}
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+function filterProducts() {
+  const term = searchInput.value.toLowerCase();
+  const brand = brandSelect.value;
+  const category = categorySelect.value;
+
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(term) &&
+    (brand === 'all' || p.brand === brand) &&
+    (category === 'all' || p.category === category)
+  );
+
+  render(filtered);
+}
+
+fetch('http://localhost:8080/api/products')
+  .then(res => res.json())
+  .then(data => {
+    products = data;
+    loader.style.display = 'none';
+    render(products);
+  });
+
+searchInput.addEventListener('input', filterProducts);
+brandSelect.addEventListener('change', filterProducts);
+categorySelect.addEventListener('change', filterProducts);
+</script>
+
+</body>
+</html>

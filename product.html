@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Produto | Sweet Imports</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 48px 16px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.back:hover {
+  color: #ef4444;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.info span {
+  color: #ef4444;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.info h1 {
+  font-size: 3rem;
+  margin: 12px 0;
+}
+
+.info p {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 24px 0;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.qty button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.qty span {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.image {
+  background: #fff;
+  border-radius: 32px;
+  height: 420px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+
+.add {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(to right, #ef4444, #f97316);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .product {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="back" onclick="history.back()">← Voltar</div>
+
+  <div class="product">
+    <div class="image">
+      <img id="product-img" alt="Produto">
+    </div>
+
+    <div class="info">
+      <span id="category"></span>
+      <h1 id="name"></h1>
+      <p id="desc"></p>
+
+      <div class="price" id="price"></div>
+
+      <div class="qty">
+        <button onclick="changeQty(-1)">−</button>
+        <span id="qty">1</span>
+        <button onclick="changeQty(1)">+</button>
+      </div>
+
+      <button class="add" onclick="addToCart()">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+
+let qty = 1;
+let product = null;
+
+fetch(`http://localhost:8080/api/products/${id}`)
+  .then(res => res.json())
+  .then(data => {
+    product = data;
+
+    document.getElementById('name').innerText = product.name;
+    document.getElementById('category').innerText = product.category;
+    document.getElementById('price').innerText =
+      `R$ ${product.price.toFixed(2).replace('.', ',')}`;
+    document.getElementById('desc').innerText =
+      'Delicioso doce importado das melhores marcas do mundo.';
+
+    document.getElementById('product-img').src = product.imageUrl;
+  });
+
+function changeQty(v) {
+  qty = Math.max(1, qty + v);
+  document.getElementById('qty').innerText = qty;
+}
+
+function addToCart() {
+  fetch(`http://localhost:8080/api/cart/add?productId=${product.id}&qty=${qty}`, {
+    method: 'POST'
+  }).then(() => {
+    alert(`Adicionado ${qty}x ${product.name}`);
+  });
+}
+</script>
+
+</body>
+</html>
