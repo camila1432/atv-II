@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sweet Imports — Carrinho</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 48px 16px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.back:hover {
+  color: #ef4444;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.gradient {
+  background: linear-gradient(to right, #ef4444, #facc15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sub {
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.item {
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+.image {
+  width: 96px;
+  height: 96px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+
+.info {
+  flex: 1;
+}
+
+.info h3 {
+  margin: 0;
+  font-weight: 800;
+}
+
+.price {
+  font-weight: 900;
+  margin-top: 4px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  background: #f3f4f6;
+  border-radius: 12px;
+}
+
+.qty button {
+  border: none;
+  background: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.qty span {
+  width: 32px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.remove {
+  border: none;
+  background: #fee2e2;
+  color: #ef4444;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.subtotal {
+  text-align: right;
+  font-weight: 800;
+}
+
+.summary {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+  position: sticky;
+  top: 24px;
+}
+
+.summary h2 {
+  margin-top: 0;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #4b5563;
+}
+
+.total {
+  font-size: 1.4rem;
+  font-weight: 900;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+}
+
+.checkout {
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(to right, #ef4444, #f97316);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.checkout:hover {
+  opacity: .9;
+}
+
+.empty {
+  text-align: center;
+  padding: 120px 16px;
+}
+
+.empty div {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <a href="products.html" class="back">← Continuar comprando</a>
+
+  <h1><span class="gradient">Seu Carrinho</span> 🛒</h1>
+  <p class="sub" id="count"></p>
+
+  <div id="empty" class="empty" style="display:none">
+    <div>🛍️</div>
+    <h2>Seu carrinho está vazio</h2>
+    <p>Adicione alguns doces deliciosos</p>
+  </div>
+
+  <div id="content" class="grid">
+    <div id="items"></div>
+
+    <div class="summary">
+      <h2>Resumo do Pedido</h2>
+
+      <div class="line">
+        <span>Subtotal</span>
+        <span id="subtotal"></span>
+      </div>
+
+      <div class="line">
+        <span>Frete</span>
+        <span style="color:#16a34a;font-weight:700">Grátis</span>
+      </div>
+
+      <div class="line total">
+        <span>Total</span>
+        <span id="total"></span>
+      </div>
+
+      <button class="checkout" onclick="checkout()">Finalizar Compra</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let cart = [];
+
+const itemsEl = document.getElementById('items');
+const emptyEl = document.getElementById('empty');
+const contentEl = document.getElementById('content');
+const subtotalEl = document.getElementById('subtotal');
+const totalEl = document.getElementById('total');
+const countEl = document.getElementById('count');
+
+function loadCart() {
+  fetch('http://localhost:8080/api/cart')
+    .then(res => res.json())
+    .then(data => {
+      cart = data.items || [];
+      render();
+    });
+}
+
+function render() {
+  itemsEl.innerHTML = '';
+
+  if (cart.length === 0) {
+    contentEl.style.display = 'none';
+    emptyEl.style.display = 'block';
+    subtotalEl.innerText = 'R$ 0,00';
+    totalEl.innerText = 'R$ 0,00';
+    countEl.innerText = '0 itens no carrinho';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  contentEl.style.display = 'grid';
+
+  let subtotal = 0;
+  let count = 0;
+
+  cart.forEach(item => {
+    subtotal += item.product.price * item.quantity;
+    count += item.quantity;
+
+    const div = document.createElement('div');
+    div.className = 'item';
+
+    const image = item.product.imageUrl || '';
+
+    div.innerHTML = `
+      <div class="image">
+        <img src="${image}" alt="${item.product.name}">
+      </div>
+
+      <div class="info">
+        <h3>${item.product.name}</h3>
+        <div class="price">
+          R$ ${item.product.price.toFixed(2).replace('.', ',')}
+        </div>
+        <div class="qty">Qtd: ${item.quantity}</div>
+      </div>
+
+      <div class="subtotal">
+        R$ ${(item.product.price * item.quantity)
+          .toFixed(2)
+          .replace('.', ',')}
+      </div>
+    `;
+
+    itemsEl.appendChild(div);
+  });
+
+  countEl.innerText = `${count} itens no carrinho`;
+  subtotalEl.innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+  totalEl.innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+}
+
+function checkout() {
+  if (cart.length === 0) return;
+
+  alert("🎉🍬 Compra finalizada com sucesso!");
+
+  cart = [];
+  render();
+}
+
+loadCart();
+</script>

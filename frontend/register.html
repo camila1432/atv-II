@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro - Sweet Imports</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:'Inter', Arial, sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ef4444,#f97316,#facc15);
+}
+
+.box{
+  width:100%;
+  max-width:380px;
+  background:#fff;
+  padding:32px;
+  border-radius:16px;
+  box-shadow:0 25px 50px rgba(0,0,0,.25);
+  animation:fade .4s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.logo-icon{
+  font-size:52px;
+}
+
+.logo-text{
+  display:block;
+  margin-top:4px;
+  font-size:26px;
+  font-weight:800;
+  color:#ef4444;
+}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:#f97316;
+  font-weight:700;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  font-size:15px;
+  outline:none;
+  transition:.2s;
+}
+
+.field input:focus{
+  border-color:#f97316;
+  box-shadow:0 0 0 3px rgba(249,115,22,.2);
+}
+
+button{
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#ef4444;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  background:#dc2626;
+  transform:translateY(-1px);
+}
+
+.links{
+  margin-top:18px;
+  text-align:center;
+}
+
+.links a{
+  display:block;
+  margin-top:8px;
+  color:#f97316;
+  font-size:14px;
+  text-decoration:none;
+}
+
+.links a:hover{
+  text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <div class="logo">
+    <div class="logo-icon">🍬</div>
+    <span class="logo-text">Sweet Imports</span>
+  </div>
+
+  <h2>Criar conta</h2>
+
+  <div class="field">
+    <input id="name" type="text" placeholder="Seu nome">
+  </div>
+
+  <div class="field">
+    <input id="email" type="email" placeholder="Seu email">
+  </div>
+
+  <div class="field">
+    <input id="password" type="password" placeholder="Crie uma senha">
+  </div>
+
+  <button onclick="register()">Cadastrar</button>
+
+  <div class="links">
+    <a href="login.html">Já tenho conta</a>
+  </div>
+</div>
+
+<script>
+const API = "http://localhost:8080/auth";
+
+async function register(){
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if(!name || !email || !password){
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  const res = await fetch(API + "/register",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ name, email, password })
+  });
+
+  if(!res.ok){
+    alert("Erro ao cadastrar");
+    return;
+  }
+
+  alert("Cadastro realizado com sucesso!");
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
